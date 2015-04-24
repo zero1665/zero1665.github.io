@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>zero's space</title>
+    <link></link>
+    <description>My personal blog</description>
+    
+      <item>
+        <title>Mac以及Windows上搭建C++工作环境</title>
+        <link>/2015/02/13/Cplus-on-MAC.html</link>
+        <guid isPermaLink="true">/2015/02/13/Cplus-on-MAC.html</guid>
+        <pubDate>Fri, 13 Feb 2015 00:00:00 +0800</pubDate>
+        <description>&lt;p&gt;实验室里我申请的垃圾老爷机被师弟玩坏了，弄了一天，最后发现根本就是硬件损伤，想把它砸掉！太坑了。&lt;/p&gt;
+
+&lt;p&gt;clang是osx自带的c,c++,objective-c编译器；gnu是常用的c++的轻量级编译器，在windows上通常是下载MinGW；sublime就不多说了；本文的目的就是搭建一个轻量级的C++编辑-编译-调试-运行环境。&lt;/p&gt;
+
+&lt;h2&gt;MAC上&lt;/h2&gt;
+
+&lt;h3&gt;方法一：&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;打开sublime，&lt;code&gt;command&lt;/code&gt;+&lt;code&gt;shift&lt;/code&gt;+&lt;code&gt;P&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;输入install，选择&lt;code&gt;install package&lt;/code&gt;，回车&lt;/li&gt;
+&lt;li&gt;输入sublimeClang，回车下载&lt;/li&gt;
+&lt;li&gt;编写一个简单的c++程序，保存为name.cpp&lt;/li&gt;
+&lt;li&gt;在terminal中，&lt;code&gt;clang++ name.cpp -o name&lt;/code&gt;或者&lt;code&gt;g++ name.cpp -o name&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;双击name运行&lt;/li&gt;
+&lt;li&gt;如果运行过程不需要输入数据，可以直接在sublime中&lt;code&gt;command&lt;/code&gt;+&lt;code&gt;shift&lt;/code&gt;+&lt;code&gt;B&lt;/code&gt;运行&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;方法二&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;AppStore中下载Xcode&lt;/li&gt;
+&lt;li&gt;使用这个IDE&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;WINDOWS上&lt;/h2&gt;
+
+&lt;h3&gt;方法一：&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;安装Installation Manager，运行，选择需要下载的组件，比如这里需要C++有关的组件&lt;/li&gt;
+&lt;li&gt;将MinGW的安装路径添加到环境变量中&lt;/li&gt;
+&lt;li&gt;cmd中输入&lt;code&gt;g++ -v&lt;/code&gt;来检测gnu是否安装成功&lt;/li&gt;
+&lt;li&gt;打开sublime text 3&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;preferences&lt;/code&gt;-&amp;gt;&lt;code&gt;browse packages&lt;/code&gt;-&amp;gt;&lt;code&gt;gcc&lt;/code&gt;(好像是这样，反正自己摸索就好了)&lt;/li&gt;
+&lt;li&gt;OK，完成&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;方法二：&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Visual Studio&lt;/li&gt;
+&lt;li&gt;使用该IDE&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;有用的资料&lt;/h3&gt;
+
+&lt;p&gt;【1】&lt;a href=&quot;https://www.cs.drexel.edu/%7Emcs171/Sp14/extras/g++/index.html&quot;&gt;Writing and Running C++ Programs in the UNIX Environment using g++&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;【2】&lt;a href=&quot;https://www.cs.drexel.edu/%7Emcs171/Sp14/extras/xCode_Instructions/index.html&quot;&gt;Writing and Running C++ Programs in the Mac OS X 10.4 Environment using xCode&lt;/a&gt;&lt;/p&gt;
+</description>
+      </item>
+    
+      <item>
+        <title>Book List 2015</title>
+        <link>/2015/01/29/Book-List-2015.html</link>
+        <guid isPermaLink="true">/2015/01/29/Book-List-2015.html</guid>
+        <pubDate>Thu, 29 Jan 2015 00:00:00 +0800</pubDate>
+        <description>
+</description>
+      </item>
+    
+      <item>
+        <title>2015年阅读书单</title>
+        <link>/2015/01/29/Book-List-2015.html</link>
+        <guid isPermaLink="true">/2015/01/29/Book-List-2015.html</guid>
+        <pubDate>Thu, 29 Jan 2015 00:00:00 +0800</pubDate>
+        <description></description>
+      </item>
+    
+  </channel>
+</rss>

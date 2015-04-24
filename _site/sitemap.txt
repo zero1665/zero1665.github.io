@@ -1,0 +1,18 @@
+
+  /pages/about.html
+
+  /pages/archive.html
+
+  /pages/atom.xml
+
+  /index.html
+
+  /sitemap.txt
+
+
+
+  /2015/02/13/Cplus-on-MAC.html
+
+  /2015/01/29/Book-List-2015.html
+
+  /2015/01/29/Book-List-2015.html
