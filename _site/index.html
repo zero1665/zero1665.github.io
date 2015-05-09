@@ -1,222 +1,172 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-<title>首页 | zero's space</title>
-<meta name="author" content="ww">
+  <head>
+    <meta charset='utf-8'>
 
+    <link rel="stylesheet" type="text/css" 
+      href="/assets/css/straybirds.css" media="screen" />
+    <link rel="stylesheet" type="text/css" 
+      href="/assets/css/pygments.css" media="screen" />
 
-<link rel="shortcut icon" href="/public/img/background/lulu.png" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/css/bootstrap.css">
-<link rel="stylesheet" href="/public/css/font-awesome.css">
-<link rel="stylesheet" href="/public/js/prettify/prettify.css">
-<link rel="stylesheet" href="/public/css/base.css">
-<link href="/pages/atom.xml" rel="alternate" title="zero's space" type="application/atom+xml">
-</head>
-<body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 col-lg-3 col-sm-13 col-xs-13 aside visible-md visible-lg">
-  <div class="row">
-    <div class="col-md-2 col-xs-2 aside1">
-      <br>
-      <a class="pjaxlink" href="/"><img src="/public/img/background/lulu.png" class="img-ronuded avatar" style="border-width:0px; border-color:#000"></a>
-      <br><br><br><br>
-      <ul class="nav nav-pills nav-stacked">
-             <!-- 这里是aside1的读书、生活、科研、技术、绘画-->
-         <li><a href="#technology" data-toggle="tab">technology</a></li>
-        
-        <li><a href="#tags" data-toggle="tab">标签</a></li>  
-        <li><a class="pjaxlink" href="/pages/archive.html">归档</a></li>
-        <li><a class="pjaxlink" href="/pages/about.html">关于</a></li>  
-        <!-- <li><a href="#tags" data-toggle="tab"><i class="fa fa-tags fa-lg"></i></a></li>
-        <li><a class="pjaxlink" href="/pages/archive.html"><i class="fa fa-archive fa-lg"></i></a></li>
-        <li><a class="pjaxlink" href="/pages/about.html"><i class="fa fa-user fa-lg"></i></a></li>
-        这是原来现实汉字的代码，我改为了图标 -->
-      </ul>
-      <div class="aside1_bottom">
-        <table class="table table-condensed">
-          <tr>
-            <td><a href="/pages/atom.xml" target="_blank"><i class="fa fa-rss fa-lg" style="color:#fff;"></i></a></td>
-            <td><a href="mailto:wangwei1665@126.com"><i class="fa fa-envelope-o fa-lg" style="color:#fff;"></i></a></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="col-md-10 col-xs-10 aside2">
-      <div class="row">
-        <div class="tab-content"> 
-           
-            <div class="tab-pane" id="technology">
-              <div class="list-group">
-                <!--<h2 class="center">technology</h2>-->     <!--原来aside2上面的大标题-->
-                
-                  <a href="/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html" class="list-group-item-lay pjaxlink">jekyll搭建静态博客记录</a>
-                
-              </div>
-            </div>
-                
-          <div class="tab-pane" id="tags">
-            <div class="panel-group" id="accordion">
-              <!--<h2 class="center">标签</h2>-->
-               
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#jekyll">jekyll</a>
-                      <span class="badge pull-right">1</span>
-                    </h4>
-                  </div>
-                  <div id="jekyll" class="panel-collapse collapse">
-                    
-                      <a  href='/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html' class="list-group-item pjaxlink">
-                        jekyll搭建静态博客记录
-                      </a>
-                    
-                  </div>
-                </div>
-               
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#gentoo">gentoo</a>
-                      <span class="badge pull-right">1</span>
-                    </h4>
-                  </div>
-                  <div id="gentoo" class="panel-collapse collapse">
-                    
-                      <a  href='/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html' class="list-group-item pjaxlink">
-                        jekyll搭建静态博客记录
-                      </a>
-                    
-                  </div>
-                </div>
-               
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#post">post</a>
-                      <span class="badge pull-right">1</span>
-                    </h4>
-                  </div>
-                  <div id="post" class="panel-collapse collapse">
-                    
-                      <a  href='/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html' class="list-group-item pjaxlink">
-                        jekyll搭建静态博客记录
-                      </a>
-                    
-                  </div>
-                </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-      <div class="col-md-13 col-lg-13 col-sm-13 col-xs-13 aside3">
-        <div id="container">
-          <div id="pjax">
-            <div class="row">
-  <div class="col-md-13 aside3-title">
-    <br>
-    <h2 id="#identifier"><i class="fa fa-home fa-lg"></i></h2>
-  </div>
-  <div class="col-md-13 aside3-content">
-    <div id="page-content">
-      <!--<br>--> 
-<center><h3><font color="#000080">怕</font><font color="#FFA500">什</font><font color="#2E8B57">么</font><font color="#F08080">真</font><font color="#00CED1">理</font><font color="red">无</font><font color="#BA55D3">穷, </font><font color="#601986">进</font><font color="#556fb5">一</font><font color="#fa1089">寸</font><font color="#638c0b">有</font><font color="#e00089">一</font><font color="#0a1089">寸</font><font color="#f0c089">的</font><font color="#00c380">欢</font><font color="#cc1089">喜</font></h3></center>
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading">最新文章</div>
-      
-        <a  href='/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html' class="list-group-item pjaxlink clearfix">
-          jekyll搭建静态博客记录
-          <span class="badge">2015年05月16日</span>
-        </a>
-      
-    </div>
-  </div>
-  
-    <div class="col-md-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Optimization</div>
-         
-          
-         
-          
-         
-          
-        
-      </div>
-    </div>
-  
-    <div class="col-md-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading">LaTeX</div>
-         
-          
-         
-          
-         
-          
-        
-      </div>
-    </div>
-  
-</div>
- 
+    <!-- MathJax Section Start -->
 
-    </div>
-    <hr>
-    <div id="disqus_thread">
-  <button type="button" name="zero1665" class="btn btn-default show-commend">	
-  	<i class="fa fa-comment-o fa-lg" style="color: #16a095;"></i>     <!-- 修改显示评论按钮图标-->
-  </button>
-</div>
+    <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script>
+        MathJax.Hub.Config({
+              tex2jax: {
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+              }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
 
-  </div>
-</div>
+    <!-- MathJax Section End -->
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div style="position:fixed;right:15px;top:62px;">
-  <button id="content_btn" class="btn btn-primary" style="width:43px; height:34px;">
-    <i class="fa fa-lg fa-plus"></i>
-  </button>
-</div>
-<div style="position:fixed;right:15px;top:20px;">
-  <button id="nav_btn" class="btn btn-primary">
-    <i class="fa fa-lg fa-navicon"></i>
-  </button>
-</div>
-<script type="text/javascript" src="/public/js/jquery.js"></script>
-<script type="text/javascript" src="/public/js/bootstrap.js"></script>
-<script src="/public/js/jquery.pjax.js"></script>
-<script src="/public/js/prettify/prettify.js"></script>
-<script src="/public/js/base.js"></script>
-<script src="/public/js/jquery.scrollUp.js"></script>
-<script>
-    $('a[href="#技术"]').tab('show');
-</script>
-
-
-<!--button是右上方导航和显示目录的按钮-->
-
-
-  <script>
+    <!-- Google Analytics Start-->
+    <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', '', '');
+
+  ga('create', 'UA-48100787-1', 'zero1665.github.io');
   ga('send', 'pageview');
+
 </script>
-</body>
+
+    <!-- Google Analytics End -->
+
+    <title>首页</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <div class="container">
+          <h1>
+              <a href="/" title="Home Page">耕耘</a>
+          <span class="github-src">
+            <a href ="https://github.com/minixalpha/minixalpha.github.io"
+               target="_blank"
+               title="Fork me on GitHub">
+              <img src="/assets/images/GitHub-Mark-Light-32px.png" alt="">
+            </a>
+          </span>
+          </h1>
+        </div>
+      </header>
+
+      <aside id="left-side">
+        <h2> 分类 </h2>
+  <ul class="category-list">
+      
+            
+                <li>
+                <a href="/categories/a-技术-git"> a-技术-git (1) </a>
+                </li>
+            
+      
+  </ul>
+
+      </aside>
+
+      <aside id="right-side">
+        <h2> 归档 </h2>
+  <ul class="archive-list">
+    
+    
+    
+        
+        
+        
+        
+            
+            <li>
+                <a href="/2015/05">
+                    2015-05 (1)
+                </a>
+            </li>
+
+        
+        
+    
+  </ul>
+
+      </aside>
+
+      <article>
+
+<ul class="post-list">
+    
+    <li>
+      <div class="post-title">
+        <a href="/a-%E6%8A%80%E6%9C%AF-git/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html"> jekyll搭建静态博客记录</a> </br>
+      </div>
+
+      <div class="post-info">
+        <ol>
+          <li class="post-time">2015-05-16</li> 
+          <li class="post-category"> 
+           a-技术-git
+          </li>
+        </ol>
+      </div>
+
+      <div class="post-preview">
+        <h3 id="全局配置文件">全局配置文件</h3>
+
+<p>_config.yml</p>
+
+<h3 id="front-matter">Front Matter</h3>
+
+<h4 id="预定义的全局yaml变量">预定义的全局<strong>YAML</strong>变量</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">layout               : 指定要使用的layout 文件（在_layouts目录下，不包含扩展名）
+permalink            : 指定博客的URLs(默认是/year/month/day/title.html)
+published            : 设置为 false 如果你不想让这篇博客在generate的时候显示
+category/categories  : 指定分类(常用) 
+tags                 : 类似categories, 可以指定一个或多个
+</code></pre></div>
+<h3 id="写博客">写博客</h3>
+
+<p>博客放在 <code>_posts</code> 文件夹下面，格式是html或markdown文件，所有的博客文件都必须包含 <em>YAML Front Matter</em></p>
+
+<p>博客文件的命名格式 <code>YEAR-MONTH-DAY-title.MARKUP</code> 例如 <em>2015-05-16-how-to-write-a-blog.md</em></p>
+
+<blockquote>
+<p>可以使用<code>post_url</code> tag 连接到其它博客</p>
+
+<p>为了正确的现实某些字符，最好定义你的字符集(charset)为utf-8 ，可以在你的layout的<code>&lt;head&gt;</code>标签里 设置 <code>&lt;meta charset=&quot;utf-8&quot;&gt;</code></p>
+</blockquote>
+ 
+        <a href="/a-%E6%8A%80%E6%9C%AF-git/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html"> Read More ... </a> </br>
+      </div>
+
+    </li>
+    
+</ul>
+
+<!-- Pagination links -->
+
+
+
+      </article>
+
+      <div class="comments">
+        
+      </div>
+
+
+      <footer>
+        Copyright (c) minixalpha 2014
+      </footer>
+
+    </div>
+  </body>
 </html>

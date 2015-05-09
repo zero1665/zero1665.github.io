@@ -1,0 +1,164 @@
+<h1 id="webpy--skeleton">web.py 项目之 skeleton</h1>
+
+<p>skeleton 是 web.py 官网上给出的一个最简单的项目结构示例。</p>
+
+<h2 id="section">目录树</h2>
+<p>```
+.
+└── src<br />
+    ├── code.py<br />
+    ├── config.py<br />
+    ├── db.py<br />
+    ├── sql
+    │   └── tables.sql
+    ├── templates
+    │   ├── base.html
+    │   ├── item.html
+    │   └── listing.html
+    └── view.py</p>
+
+<p>3 directories, 9 files
+```</p>
+
+<h2 id="section-1">结构分析</h2>
+
+<h3 id="section-2">控制模块</h3>
+
+<p>```python
+#code.py</p>
+
+<p>import web
+import view, config
+from view import render</p>
+
+<p>urls = (
+    ‘/’, ‘index’
+)</p>
+
+<p>class index:
+    def GET(self):
+        return render.base(view.listing())</p>
+
+<p>if <strong>name</strong> == “<strong>main</strong>”:
+    app = web.application(urls, globals())
+    app.internalerror = web.debugerror
+    app.run()
+```</p>
+
+<p><code>code</code> 模块作为入口:</p>
+
+<ul>
+  <li>app 的创建与启动</li>
+  <li>url　与　处理类的映射与处理入口</li>
+</ul>
+
+<p>但是，具体的处理并不在这里实现。而是放在了 <code>view</code> 模块中。</p>
+
+<pre><code>这一模块是MVC中的C吗？
+</code></pre>
+
+<h3 id="section-3">显示模块</h3>
+
+<p>```python
+#view.py</p>
+
+<p>import web
+import db
+import config</p>
+
+<p>t_globals = dict(
+  datestr=web.datestr,
+)
+render = web.template.render(‘templates/’, cache=config.cache, 
+    globals=t_globals)
+render._keywords[‘globals’][‘render’] = render</p>
+
+<p>def listing(*<em>k):
+    l = db.listing(*</em>k)
+    return render.listing(l)
+```</p>
+
+<p>从这里可以看出　<code>view</code> 模块</p>
+
+<ul>
+  <li>与模板关联 </li>
+  <li>从数据库中取数据，然后发给模板</li>
+</ul>
+
+<p>我们再来看看模板:</p>
+
+<p>```html
+<!--
+    templates/base.html
+--></p>
+
+<p>$def with (page, title=None)</p>
+<html><head>
+<title>my site\
+$if title: : $title\
+</title>
+</head><body>
+<h1><a href="/">my site</a></h1>
+$:page   
+</body></html>
+<p>```</p>
+
+<p><code>base.html</code> 是所有模块的公共部分，每个模块只需要提供
+它的 <code>page</code> ，即内容就可以了。</p>
+
+<p>```html
+<!--
+    templates/listing.html
+--></p>
+
+<p>$def with (items)</p>
+
+<p>$for item in items:
+    $:render.item(item)</p>
+
+<p>```</p>
+
+<pre><code>这一模块是MVC中的V吗
+</code></pre>
+
+<h3 id="section-4">数据操作</h3>
+
+<p>数据库操作分三部分</p>
+
+<ul>
+  <li>sql/tables.sql 数据库表定义</li>
+  <li>config.py 数据库连接</li>
+  <li>db.py 数据库操作</li>
+</ul>
+
+<p><code>
+/* tables.sql */
+CREATE TABLE items (
+    id serial primary key,
+    author_id int references users,
+    body text,
+    created timestamp default current_timestamp 
+);
+</code></p>
+
+<p>```
+#config.py</p>
+
+<p>import web
+DB = web.database(dbn=’mysql’, db=’skeleton’, user=’root’, pw=’xx’)
+cache = False
+```</p>
+
+<p>```
+# db.py
+import config</p>
+
+<p>def listing(**k):
+    return config.DB.select(‘items’, **k)
+```</p>
+
+<pre><code>这是MVC中的M吗
+</code></pre>
+
+<p>这是 web.py 中最基本的一个项目结构。应该是使用的MVC设计模式。但是
+因为程序本身不大，还体会不到 MVC 的好处。</p>

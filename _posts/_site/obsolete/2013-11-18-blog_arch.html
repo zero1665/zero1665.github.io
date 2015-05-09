@@ -1,0 +1,284 @@
+<h1 id="webpy--blog">web.py 项目之 blog</h1>
+
+<h2 id="section">目录树</h2>
+
+<p>```
+src/
+├── blog.py
+├── model.py
+├── schema.sql
+└── templates
+    ├── base.html
+    ├── edit.html
+    ├── index.html
+    ├── new.html
+    └── view.html</p>
+
+<p>1 directory, 8 files
+```</p>
+
+<h2 id="section-1">项目说明</h2>
+
+<p>项目来自 <a href="http://webpy.org/src/blog/0.3">webpy.org</a>,
+主要实现一个基于web的博客系统，实现了基本的增删查改。</p>
+
+<h2 id="section-2">结构分析</h2>
+
+<h3 id="section-3">控制模块</h3>
+
+<p>控制模块包括 blog.py</p>
+
+<p>```python
+“”” Basic blog using webpy 0.3 “””
+import web
+import model</p>
+
+<h3 id="url-mappings">Url mappings</h3>
+
+<p>urls = (
+    ‘/’, ‘Index’,
+    ‘/view/(\d+)’, ‘View’,
+    ‘/new’, ‘New’,
+    ‘/delete/(\d+)’, ‘Delete’,
+    ‘/edit/(\d+)’, ‘Edit’,
+)</p>
+
+<h3 id="templates">Templates</h3>
+<p>t_globals = {
+    ‘datestr’: web.datestr
+}
+render = web.template.render(‘templates’, base=’base’, globals=t_globals)</p>
+
+<p>class Index:</p>
+
+<pre><code>def GET(self):
+    """ Show page """
+    posts = model.get_posts()
+    return render.index(posts)
+</code></pre>
+
+<p>class View:</p>
+
+<pre><code>def GET(self, id):
+    """ View single post """
+    post = model.get_post(int(id))
+    return render.view(post)
+</code></pre>
+
+<p>class New:</p>
+
+<pre><code>form = web.form.Form(
+    web.form.Textbox('title', web.form.notnull, 
+        size=30,
+        description="Post title:"),
+    web.form.Textarea('content', web.form.notnull, 
+        rows=30, cols=80,
+        description="Post content:"),
+    web.form.Button('Post entry'),
+)
+
+def GET(self):
+    form = self.form()
+    return render.new(form)
+
+def POST(self):
+    form = self.form()
+    if not form.validates():
+        return render.new(form)
+    model.new_post(form.d.title, form.d.content)
+    raise web.seeother('/')
+</code></pre>
+
+<p>class Delete:</p>
+
+<pre><code>def POST(self, id):
+    model.del_post(int(id))
+    raise web.seeother('/')
+</code></pre>
+
+<p>class Edit:</p>
+
+<pre><code>def GET(self, id):
+    post = model.get_post(int(id))
+    form = New.form()
+    form.fill(post)
+    return render.edit(post, form)
+
+
+def POST(self, id):
+    form = New.form()
+    post = model.get_post(int(id))
+    if not form.validates():
+        return render.edit(post, form)
+    model.update_post(int(id), form.d.title, form.d.content)
+    raise web.seeother('/')
+</code></pre>
+
+<p>app = web.application(urls, globals())</p>
+
+<p>if <strong>name</strong> == ‘<strong>main</strong>’:
+    app.run()
+```</p>
+
+<p>可以看出，主要的逻辑，即对各个请求的处理，都在这个模块中，
+包括表单的生成，数据的获取，以及对模板引擎的调用。这个
+模块主要是在顶层调用，具体的细节不在这里实现。</p>
+
+<h3 id="section-4">显示模块</h3>
+
+<p>显示模块没有具体实现逻辑的代码，只有模板引擎用到的一些HTML
+文件，这些文件的大体内容已经定下来，只是具体需要填充的内容
+需要在控制模块中进行设定。</p>
+
+<p>templates/base.html  </p>
+
+<p>```html
+$def with (page)</p>
+
+<html>
+<head>
+    <title>My Blog</title>
+    <style>
+        #menu {
+            width: 200px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+
+<ul id="menu">
+    <li><a href="/">Home</a></li>
+    <li><a href="/new">New Post</a></li>
+</ul>
+
+$:page
+
+</body>
+</html>
+<p>```</p>
+
+<p><code>base.html</code> 为每个文件提供都基本的模板，其它文件只负责自己的那
+一块内容。</p>
+
+<p>templates/index.html</p>
+
+<p>```html</p>
+
+<p>$def with (posts)</p>
+
+<h1>Blog posts</h1>
+
+<ul>
+$for post in posts:
+    <li>
+        <a href="/view/$post.id">$post.title</a> 
+        from $datestr(post.posted_on) 
+        <a href="/edit/$post.id">Edit</a>
+    </li>
+</ul>
+<p>```</p>
+
+<p><code>index.html</code> 负责文章列表的显示。</p>
+
+<p>templates/new.html  </p>
+
+<p>```html</p>
+
+<p>$def with (form)</p>
+
+<h1>New Blog Post</h1>
+<form action="" method="post">
+$:form.render()
+</form>
+<p>```</p>
+
+<p><code>new.html</code> 负责新建文件页面。</p>
+
+<p>templates/edit.html</p>
+
+<p>```html</p>
+
+<p>$def with (post, form)</p>
+
+<h1>Edit $form.d.title</h1>
+
+<form action="" method="post">
+$:form.render()
+</form>
+
+<h2>Delete post</h2>
+<form action="/delete/$post.id" method="post">
+    <input type="submit" value="Delete post" />
+</form>
+<p>```</p>
+
+<p><code>edit.html</code> 负责文章的编辑页面。</p>
+
+<p>templates/view.html</p>
+
+<p>```html
+$def with (post)</p>
+
+<h1>$post.title</h1>
+<p>$datestr(post.posted_on)<br /></p>
+
+<p>$post.content
+```</p>
+
+<p><code>view.html</code> 负责显示文章页面。</p>
+
+<h3 id="section-5">数据模块</h3>
+
+<p>数据模块包含两个文件　<code>schema.sql</code> 和 <code>model.py</code></p>
+
+<p>schema.sql  </p>
+
+<p><code>
+CREATE TABLE entries (
+    id INT AUTO_INCREMENT,
+    title TEXT,
+    content TEXT,
+    posted_on DATETIME,
+    primary key (id)
+);
+</code></p>
+
+<p><code>schema.sql</code> 包含了数据库中表的格式</p>
+
+<p>model.py</p>
+
+<p>```python</p>
+
+<p>import web, datetime</p>
+
+<p>db = web.database(dbn=’mysql’, db=’miniblog’, user=’root’, pw=”7102155”)</p>
+
+<p>def get_posts():
+    return db.select(‘entries’, order=’id DESC’)</p>
+
+<p>def get_post(id):
+    try:
+        return db.select(‘entries’, where=’id=$id’, vars=locals())[0]
+    except IndexError:
+        return None</p>
+
+<p>def new_post(title, text):
+    db.insert(‘entries’, title=title, content=text, posted_on=datetime.datetime.utcnow())</p>
+
+<p>def del_post(id):
+    db.delete(‘entries’, where=”id=$id”, vars=locals())</p>
+
+<p>def update_post(id, title, text):
+    db.update(‘entries’, where=”id=$id”, vars=locals(),
+        title=title, content=text)
+```</p>
+
+<p><code>model.py</code> 包含了数据库连接的创建与数据库操作的具体细节。
+此模块中的函数被控制模块调用，从数据库中读取数据。</p>
+
+<p>总的来说，控制模块在最顶层，负责对请求进行处理，调用数据模块，
+从数据库中读取，写入数据。再将从数据库中取出的数据送给显示模块
+进行显示。</p>
+
+<p>感觉项目再大一点就应该把控制模块再分割了。</p>

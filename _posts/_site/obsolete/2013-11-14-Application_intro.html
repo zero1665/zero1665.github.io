@@ -1,0 +1,66 @@
+<h2 id="section">分模块测试</h2>
+
+<h3 id="applicationpy">application.py</h3>
+
+<p>对 application.py 的测试，调用命令：</p>
+
+<pre><code>python test/application.py
+</code></pre>
+
+<p>程序入口依然会调用 <code>webtest.main()</code></p>
+
+<p><code>python
+if __name__ == '__main__':
+    webtest.main()
+</code></p>
+
+<p>再仔细观察 <code>webtest.main</code> 调用的 <code>web.test</code> 中的 <code>main</code>函数</p>
+
+<p>```python
+def main(suite=None):
+    if not suite:
+        main_module = <strong>import</strong>(‘<strong>main</strong>’)
+        # allow command line switches
+        args = [a for a in sys.argv[1:] if not a.startswith(‘-‘)]
+        suite = module_suite(main_module, args or None)</p>
+
+<pre><code>result = runTests(suite)
+sys.exit(not result.wasSuccessful()) ```
+</code></pre>
+
+<p>回顾一下 <code>module_suite</code>函数，</p>
+
+<p><code>python
+def module_suite(module, classnames=None):
+    """Makes a suite from a module."""
+    if classnames:
+        return unittest.TestLoader().loadTestsFromNames(classnames, module)
+    elif hasattr(module, 'suite'):
+        return module.suite()
+    else:
+        return unittest.TestLoader().loadTestsFromModule(module)
+</code></p>
+
+<p>与 <code>alltests.py</code> 不同，<code>application.py</code>中并没有 <code>suite</code>，
+所以直接进入第三分支。后面的流程就和之前讲的后半部分一致了。</p>
+
+<p>这里，我们主要集中于 <code>application.py</code>中的具体内容。</p>
+
+<ul>
+  <li>
+    <ol>
+      <li>test_reloader</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>test_UppercaseMethods</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>testRedirect</li>
+    </ol>
+  </li>
+</ul>
+

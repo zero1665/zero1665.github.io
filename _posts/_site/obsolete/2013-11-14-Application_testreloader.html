@@ -1,0 +1,305 @@
+<h1 id="section">分模块测试</h1>
+
+<h2 id="applicationpy">application.py</h2>
+
+<p>对 application.py 的测试，调用命令：</p>
+
+<pre><code>python test/application.py
+</code></pre>
+
+<h3 id="testreloaderself">test_reloader(self)</h3>
+
+<p>```python
+def test_reloader(self):
+    write(‘foo.py’, data % dict(classname=’a’, output=’a’))
+    import foo
+    app = foo.app</p>
+
+<pre><code>self.assertEquals(app.request('/').data, 'a')
+
+# test class change
+time.sleep(1)
+write('foo.py', data % dict(classname='a', output='b'))
+self.assertEquals(app.request('/').data, 'b')
+
+# test urls change
+time.sleep(1)
+write('foo.py', data % dict(classname='c', output='c'))
+self.assertEquals(app.request('/').data, 'c') ```
+</code></pre>
+
+<p>总的来说，这个过程会生成一个 foo.py 文件</p>
+
+<p>```python
+import web</p>
+
+<p>urls = (“/”, “a”)
+app = web.application(urls, globals(), autoreload=True)</p>
+
+<p>class a:
+    def GET(self):
+        return “a”</p>
+
+<p>```</p>
+
+<p>这是一个典型的 web 服务端应用程序，表示对 <code>/</code> 发起 <code>GET</code>
+请求时，会调用 <code>class a</code> 中的 <code>GET</code> 函数，测试就是看看
+web.application 是否可以正常完成任务，即是否可以正确返回”a”</p>
+
+<p>下面详细看代码。</p>
+
+<p>首先使用 <code>write</code> 生成了一个 <code>foo.py</code> 程序:</p>
+
+<p><code>python
+        write('foo.py', data % dict(classname='a', output='a'))
+</code></p>
+
+<p>write 源代码:</p>
+
+<p><code>python
+def write(filename, data):
+    f = open(filename, 'w')
+    f.write(data)
+    f.close()
+</code></p>
+
+<p>data 定义:
+```python
+data = “””
+import web</p>
+
+<p>urls = (“/”, “%(classname)s”)
+app = web.application(urls, globals(), autoreload=True)</p>
+
+<p>class %(classname)s:
+    def GET(self):
+        return “%(output)s”</p>
+
+<p>”””
+```</p>
+
+<p><code>data</code> 相当于一个小型 web 程序的模板，类名和返回值由
+一个 <code>dict</code> 指定，生成一个字符串，由 <code>write</code> 生成文件。 </p>
+
+<p>下面是类别和返回值为 <code>a</code> 时的 <code>foo.py</code></p>
+
+<p>```python
+import web</p>
+
+<p>urls = (“/”, “a”)
+app = web.application(urls, globals(), autoreload=True)</p>
+
+<p>class a:
+    def GET(self):
+        return “a”
+```</p>
+
+<p>测试的方式采用 <code>TestCase</code> 中的 <code>assertEquals</code> 函数，比较
+实际值与预测值。</p>
+
+<p><code>python
+import foo
+app = foo.app
+self.assertEquals(app.request('/').data, 'a')
+</code></p>
+
+<p><code>app.request('/')</code> 会得到一个Storage类型的值：</p>
+
+<pre><code>&lt;Storage {'status': '200 OK', 'headers': {}, 'header_items': [], 'data': 'a'}&gt;
+</code></pre>
+
+<p>其中的 <code>data</code> 就是 <code>foo.py</code> 中 <code>GET</code> 返回的值。 </p>
+
+<p>我对这个 <code>app.request('/')</code> 是比较困惑的。以 <code>foo.py</code> 为例，
+之前写程序时，一般是有一个这样的程序：</p>
+
+<p>```python
+import web</p>
+
+<p>urls = (“/”, “a”)
+app = web.application(urls, globals(), autoreload=True)</p>
+
+<p>class a:
+    def GET(self):
+        return “a”</p>
+
+<p>if <strong>name</strong> == “<strong>main</strong>”:
+    app.run()
+```</p>
+
+<p>然后在浏览器中请求 <code>0.0.0.0:8080/</code> 。
+而在 <code>request</code> 之前，也没看到 <code>run</code> 啊，怎么就能 <code>request</code> 回
+数据呢，而且通过上述代码运行后，程序会一直运行直到手动关闭，
+而 <code>request</code> 的方式则是测试完后，整个程序也结束了。</p>
+
+<p>所以，下一部，想比较一下 <code>application.run</code> 和 <code>application.request</code> 的不同。</p>
+
+<p>我们只看关键部分，即返回的值是如何被设值的。</p>
+
+<p>在 <code>web.application.request</code> 中:</p>
+
+<p>```python
+def request(self, localpart=’/’, method=’GET’, data=None,
+            host=”0.0.0.0:8080”, headers=None, https=False, **kw):</p>
+
+<pre><code>...
+</code></pre>
+
+<p>response = web.storage()
+def start_response(status, headers):
+    response.status = status
+    response.headers = dict(headers)
+    response.header_items = headers
+response.data = ““.join(self.wsgifunc()(env, start_response))
+return response
+```</p>
+
+<p>上述代码中 <code>self.wsgifunc()(env, start_response)</code> 比较另人困惑，
+我还以为是调用函数的新方式呢，然后看了一下 <code>wsgifunc</code> 的代码，
+它会返回一个函数<code>wsgi</code>，<code>wsgi</code>以 <code>(env, start_response)</code> 为参数。
+在 <code>wsgi</code> 内部，又会调用 <code>handle_with_processors</code>, <code>handle_with_processors</code> 会再调用 <code>handle</code></p>
+
+<p><code>python
+    def handle(self):
+        fn, args = self._match(self.mapping, web.ctx.path)
+        return self._delegate(fn, self.fvars, args)
+</code></p>
+
+<p>测试了一下，<code>self._match()</code> 会得到类名, <code>self._delegate</code> 会
+得到返回的字符串，即 <code>GET</code>的返回值。</p>
+
+<p>进入 <code>self._delegate</code>, 会最终调用一个关键函数 <code>handle_class</code>:</p>
+
+<p><code>python
+def handle_class(cls):
+    meth = web.ctx.method
+    if meth == 'HEAD' and not hasattr(cls, meth):
+        meth = 'GET'
+    if not hasattr(cls, meth):
+        raise web.nomethod(cls)
+    tocall = getattr(cls(), meth)
+    return tocall(\*args)
+</code></p>
+
+<p>参数<code>cls</code>值为<code>foo.a</code>, <code>meth</code> 会得到方法名 <code>GET</code>, 然后
+<code>tocall</code> 会得到函数 <code>a.GET</code>, 至此，我们终于得以调用，
+<code>GET</code>函数，得到了返回的字符串。</p>
+
+<p>从整个过程可以看出，没有启动服务器的代码，只是不断地调用
+函数，最终来到 <code>GET</code> 函数。</p>
+
+<p>再看看 <code>web.application.run</code>:</p>
+
+<p><code>python
+def run(self, *middleware):
+    return wsgi.runwsgi(self.wsgifunc(\*middleware))
+</code></p>
+
+<p>接着，我们来到 <code>wsgi.runwsgi</code>:</p>
+
+<p>```python
+def runwsgi(func):
+    “””
+    Runs a WSGI-compatible <code>func</code> using FCGI, SCGI, or a simple web server,
+    as appropriate based on context and <code>sys.argv</code>.
+    “””</p>
+
+<pre><code>if os.environ.has_key('SERVER_SOFTWARE'): # cgi
+    os.environ['FCGI_FORCE_CGI'] = 'Y'
+
+if (os.environ.has_key('PHP_FCGI_CHILDREN') #lighttpd fastcgi
+  or os.environ.has_key('SERVER_SOFTWARE')):
+    return runfcgi(func, None)
+
+if 'fcgi' in sys.argv or 'fastcgi' in sys.argv:
+    args = sys.argv[1:]
+    if 'fastcgi' in args: args.remove('fastcgi')
+    elif 'fcgi' in args: args.remove('fcgi')
+    if args:
+        return runfcgi(func, validaddr(args[0]))
+    else:
+        return runfcgi(func, None)
+
+if 'scgi' in sys.argv:
+    args = sys.argv[1:]
+    args.remove('scgi')
+    if args:
+        return runscgi(func, validaddr(args[0]))
+    else:
+        return runscgi(func)
+
+
+server_addr = validip(listget(sys.argv, 1, ''))
+if os.environ.has_key('PORT'): # e.g. Heroku
+    server_addr = ('0.0.0.0', intget(os.environ['PORT']))
+
+return httpserver.runsimple(func, server_addr) ```
+</code></pre>
+
+<p>前面是对参数 <code>sys.argv</code> 分析，根据参数指定，启动相应服务，
+我们的简单web程序没有参数，所以直接来到最后几行。</p>
+
+<p>关键在于最后的 <code>return</code></p>
+
+<p><code>python
+return httpserver.runsimple(func, server_addr)
+</code></p>
+
+<p>可以看出，这里启动了一个服务器。</p>
+
+<p>再看看 <code>httpserver.runsimple</code>的代码：</p>
+
+<p>```python
+def runsimple(func, server_address=(“0.0.0.0”, 8080)):
+    “””
+    Runs [CherryPy][cp] WSGI server hosting WSGI app <code>func</code>. 
+    The directory <code>static/</code> is hosted statically.</p>
+
+<pre><code>[cp]: http://www.cherrypy.org
+"""
+global server
+func = StaticMiddleware(func)
+func = LogMiddleware(func)
+
+server = WSGIServer(server_address, func)
+
+if server.ssl_adapter:
+    print "https://%s:%d/" % server_address
+else:
+    print "http://%s:%d/" % server_address
+
+try:
+    server.start()
+except (KeyboardInterrupt, SystemExit):
+    server.stop()
+    server = None ```
+</code></pre>
+
+<p>从注释中可以看出，这里使用了 <code>CherryPy</code>中的 <code>WSGI server</code>,
+启动了服务器。</p>
+
+<p><code>python
+        server.start()
+</code></p>
+
+<p>我们不再继续深入下去。只是直观地了解一下， <code>application.run</code>
+和 <code>application.request</code> 的不同之处。</p>
+
+<p>从这里我们看出了相当重要的概念 <code>WSGI</code>。
+这里有几篇对 <code>WSGI</code> 作介绍的博客：</p>
+
+<ul>
+  <li><a href="http://blog.kenshinx.me/blog/wsgi-research/">Wsgi研究</a> </li>
+  <li><a href="http://linluxiang.iteye.com/blog/799163">wsgi初探</a> </li>
+  <li>[Getting Started with WSGI] (http://lucumr.pocoo.org/2007/5/21/getting-started-with-wsgi/) </li>
+  <li>[An Introduction to the Python Web Server Gateway Interface] (http://ivory.idyll.org/articles/wsgi-intro/what-is-wsgi.html) </li>
+  <li><a href="http://blog.ez2learn.com/2010/01/27/introduction-to-wsgi/">化整為零的次世代網頁開發標準: WSGI</a> </li>
+</ul>
+
+<p>这里有对 <code>WSGI</code> 的详细介绍:</p>
+
+<ul>
+  <li><a href="http://webpython.codepoint.net/wsgi_tutorial">WSGI Tutorial</a> </li>
+  <li><a href="http://wsgi.readthedocs.org/en/latest/">WSGI org</a> </li>
+  <li><a href="http://www.python.org/dev/peps/pep-0333/">PEP 333</a> </li>
+</ul>
