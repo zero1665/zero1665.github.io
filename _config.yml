@@ -1,6 +1,6 @@
 permalink: /:year/:month/:day/:title.html
 paginate: 10
-markdown: redcarpet
+markdown: redcarpet #默认是 kramdown
 
 # 作者信息
 author: 
@@ -9,7 +9,7 @@ author:
   
 # 站点信息
 title: zero's space
-description: My personal blog
+description: My personal space
 
 
 # gavatar头像及Favicon
@@ -23,7 +23,7 @@ ga:
 
 # disqus 设置
 disqus:
-  shortname: painterlin
+  shortname: zero1665
 
 # 主题设置，自动激活某个标签
 active: 技术
@@ -39,3 +39,16 @@ locals:
   about: 关于
   newest: 最新文章
   archive: 归档
+
+#site-wide 默认设置
+
+defaults:
+  -
+    scope:
+      path: "" #空字符串这里代表的是project里的所有文件
+      type:    #指定应用到的类型，一般为"posts" "drafts" "pages"其中的一个
+    values:
+      layout:   #这是指定想要应用到上面path的布局文件，比如"default"
+      author: "ww" #指定作者
+
+

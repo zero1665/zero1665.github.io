@@ -3,81 +3,204 @@
   <channel>
     <title>zero's space</title>
     <link></link>
-    <description>My personal blog</description>
+    <description>My personal space</description>
     
       <item>
-        <title>Mac以及Windows上搭建C++工作环境</title>
-        <link>/2015/02/13/Cplus-on-MAC.html</link>
-        <guid isPermaLink="true">/2015/02/13/Cplus-on-MAC.html</guid>
-        <pubDate>Fri, 13 Feb 2015 00:00:00 +0800</pubDate>
-        <description>&lt;p&gt;实验室里我申请的垃圾老爷机被师弟玩坏了，弄了一天，最后发现根本就是硬件损伤，想把它砸掉！太坑了。&lt;/p&gt;
+        <title>jekyll搭建静态博客记录</title>
+        <link>/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html</link>
+        <guid isPermaLink="true">/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html</guid>
+        <pubDate>Sat, 16 May 2015 00:00:00 +0800</pubDate>
+        <description>&lt;h3&gt;全局配置文件&lt;/h3&gt;
 
-&lt;p&gt;clang是osx自带的c,c++,objective-c编译器；gnu是常用的c++的轻量级编译器，在windows上通常是下载MinGW；sublime就不多说了；本文的目的就是搭建一个轻量级的C++编辑-编译-调试-运行环境。&lt;/p&gt;
+&lt;p&gt;_config.yml&lt;/p&gt;
 
-&lt;h2&gt;MAC上&lt;/h2&gt;
+&lt;h3&gt;Front Matter&lt;/h3&gt;
 
-&lt;h3&gt;方法一：&lt;/h3&gt;
+&lt;h4&gt;预定义的全局&lt;strong&gt;YAML&lt;/strong&gt;变量&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;layout               : 指定要使用的layout 文件（在_layouts目录下，不包含扩展名）
+permalink            : 指定博客的URLs(默认是/year/month/day/title.html)
+published            : 设置为 false 如果你不想让这篇博客在generate的时候显示
+category/categories  : 指定分类(常用) 
+tags                 : 类似categories, 可以指定一个或多个
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;写博客&lt;/h3&gt;
 
-&lt;ol&gt;
-&lt;li&gt;打开sublime，&lt;code&gt;command&lt;/code&gt;+&lt;code&gt;shift&lt;/code&gt;+&lt;code&gt;P&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;输入install，选择&lt;code&gt;install package&lt;/code&gt;，回车&lt;/li&gt;
-&lt;li&gt;输入sublimeClang，回车下载&lt;/li&gt;
-&lt;li&gt;编写一个简单的c++程序，保存为name.cpp&lt;/li&gt;
-&lt;li&gt;在terminal中，&lt;code&gt;clang++ name.cpp -o name&lt;/code&gt;或者&lt;code&gt;g++ name.cpp -o name&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;双击name运行&lt;/li&gt;
-&lt;li&gt;如果运行过程不需要输入数据，可以直接在sublime中&lt;code&gt;command&lt;/code&gt;+&lt;code&gt;shift&lt;/code&gt;+&lt;code&gt;B&lt;/code&gt;运行&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;博客放在 &lt;code&gt;_posts&lt;/code&gt; 文件夹下面，格式是html或markdown文件，所有的博客文件都必须包含 &lt;em&gt;YAML Front Matter&lt;/em&gt;&lt;/p&gt;
 
-&lt;h3&gt;方法二&lt;/h3&gt;
+&lt;p&gt;博客文件的命名格式 &lt;code&gt;YEAR-MONTH-DAY-title.MARKUP&lt;/code&gt; 例如 &lt;em&gt;2015-05-16-how-to-write-a-blog.md&lt;/em&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-&lt;li&gt;AppStore中下载Xcode&lt;/li&gt;
-&lt;li&gt;使用这个IDE&lt;/li&gt;
-&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可以使用&lt;code&gt;post_url&lt;/code&gt; tag 连接到其它博客&lt;/p&gt;
 
-&lt;h2&gt;WINDOWS上&lt;/h2&gt;
+&lt;p&gt;为了正确的现实某些字符，最好定义你的字符集(charset)为utf-8 ，可以在你的layout的&lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt;标签里 设置 &lt;code&gt;&amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;h3&gt;方法一：&lt;/h3&gt;
+&lt;h4&gt;包含图片等资源文件&lt;/h4&gt;
 
-&lt;ol&gt;
-&lt;li&gt;安装Installation Manager，运行，选择需要下载的组件，比如这里需要C++有关的组件&lt;/li&gt;
-&lt;li&gt;将MinGW的安装路径添加到环境变量中&lt;/li&gt;
-&lt;li&gt;cmd中输入&lt;code&gt;g++ -v&lt;/code&gt;来检测gnu是否安装成功&lt;/li&gt;
-&lt;li&gt;打开sublime text 3&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;preferences&lt;/code&gt;-&amp;gt;&lt;code&gt;browse packages&lt;/code&gt;-&amp;gt;&lt;code&gt;gcc&lt;/code&gt;(好像是这样，反正自己摸索就好了)&lt;/li&gt;
-&lt;li&gt;OK，完成&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;在项目目录下建立相应的文件夹，比如 新建&lt;code&gt;images&lt;/code&gt;文件夹放图片，然后在博客中使用&lt;code&gt;site.url&lt;/code&gt;变量去包含图片
+例子：在博客中包含一个图片(images文件夹下)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;… which is shown in the screenshot below:
+![My helpful screenshot](/images/screenshot.jpg)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;例子2：放一个pdf文件(assets文件夹下)让别人下载&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;… you can [get the PDF](/assets/mydoc.pdf) directly.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;显示文章的索引(index)&lt;/h4&gt;
 
-&lt;h3&gt;方法二：&lt;/h3&gt;
+&lt;p&gt;example:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;lt;ul&amp;gt;
 
-&lt;ol&gt;
-&lt;li&gt;Visual Studio&lt;/li&gt;
-&lt;li&gt;使用该IDE&lt;/li&gt;
-&lt;/ol&gt;
+      &amp;lt;li&amp;gt;
+            &amp;lt;a href=&amp;quot;/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html&amp;quot;&amp;gt;jekyll搭建静态博客记录&amp;lt;/a&amp;gt;
+      &amp;lt;/li&amp;gt;
 
-&lt;h3&gt;有用的资料&lt;/h3&gt;
+ &amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;文章摘录&lt;/h4&gt;
 
-&lt;p&gt;【1】&lt;a href=&quot;https://www.cs.drexel.edu/%7Emcs171/Sp14/extras/g++/index.html&quot;&gt;Writing and Running C++ Programs in the UNIX Environment using g++&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;继续用上面的例子，如果你要显示每篇博客的一部分内容，用如下设置&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;lt;ul&amp;gt;
 
-&lt;p&gt;【2】&lt;a href=&quot;https://www.cs.drexel.edu/%7Emcs171/Sp14/extras/xCode_Instructions/index.html&quot;&gt;Writing and Running C++ Programs in the Mac OS X 10.4 Environment using xCode&lt;/a&gt;&lt;/p&gt;
+      &amp;lt;li&amp;gt;
+            &amp;lt;a href=&amp;quot;/2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html&amp;quot;&amp;gt;jekyll搭建静态博客记录&amp;lt;/a&amp;gt;
+            &amp;lt;h3&amp;gt;全局配置文件&amp;lt;/h3&amp;gt;
+
+&amp;lt;p&amp;gt;_config.yml&amp;lt;/p&amp;gt;
+
+&amp;lt;h3&amp;gt;Front Matter&amp;lt;/h3&amp;gt;
+
+&amp;lt;h4&amp;gt;预定义的全局&amp;lt;strong&amp;gt;YAML&amp;lt;/strong&amp;gt;变量&amp;lt;/h4&amp;gt;
+
+      &amp;lt;/li&amp;gt;
+
+&amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you don&amp;#39;t want to wrap the excerpt in &lt;code&gt;p&lt;/code&gt; tags ,use below code&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果在某篇博客里不想生成摘要，可以在 &lt;code&gt;YAML Front Matter&lt;/code&gt; 加一个 &lt;code&gt;excerpt&lt;/code&gt;值，也可以自己定制一个&lt;code&gt;excerpt_separator&lt;/code&gt;,例如：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;---
+excerpt_separator: &amp;lt;!--more--&amp;gt;
+---
+
+Excerpt
+&amp;lt;!--more--&amp;gt;
+Out-of-excerpt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果想禁止所有博客的摘要，可以在 &lt;code&gt;_config.yml&lt;/code&gt;文建立设置&lt;code&gt;excerpt_separator : &amp;quot;&amp;quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4&gt;代码高亮&lt;/h4&gt;
+
+&lt;p&gt;jekyll支持代码高亮，使用的是 Rouge 或 Pygments&lt;/p&gt;
+
+&lt;p&gt;代码高亮的专用Liquid tag 如下所示：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;
+  &lt;span class=&quot;vi&quot;&gt;@widget&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Widget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;respond_to&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# show.html.erb&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;render&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@widget&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;gt;让代码显示行号则要写成 `
+
+`
+
+###创建pages
+####homepage
+根目录下的`index.html`文件
+
+&amp;gt;在homepage中使用 layout
+
+####额外的pages在哪里
+
+主要有两种创建pages的方式：
+
++ 将每个page的Mamed HTML file都放在网站的根目录下
++ 在根目录下，为每个page新建相应的文件夹，然后每个文件夹下都放一个`index.html`文件。
+
+两种方式可以结合使用，主要的区别是最终的实际URLs不同
+
+方式1：Named HTML file 
+
+项目根目录下的每一个`.html`文件都对应着一个page， 最终的URLs格式参见下面的例子：
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;.
+|-- _config.yml
+|-- _includes/
+|-- _layouts/
+|-- _posts/
+|-- _site/
+|-- about.html    # =&amp;gt; http://example.com/about.html
+|-- index.html    # =&amp;gt; http://example.com/
+└── contact.html  # =&amp;gt; http://example.com/contact.html
+``&lt;code&gt;
+方式2：包含&lt;/code&gt;index.html`的独立文件夹
+直接参见例子：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;.
+├── _config.yml
+├── _includes/
+├── _layouts/
+├── _posts/
+├── _site/
+├── about/
+|   └── index.html  # =&amp;gt; http://example.com/about/
+├── contact/
+|   └── index.html  # =&amp;gt; http://example.com/contact/
+└── index.html      # =&amp;gt; http://example.com/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;static file&lt;/h3&gt;
+
+&lt;p&gt;static file：不含有 YAML front matter 的文件，比如图片，pdf等文件。这些文件不能被渲染和翻译为html文件&lt;/p&gt;
+
+&lt;p&gt;They’re accessible in Liquid via &lt;code&gt;site.static_files&lt;/code&gt; and contain the following metadata:
+|VARIABLE   |DESCRIPTION|
+|file.path       |The relative path to the file.|
+|file.modified_time| The &lt;code&gt;Time&lt;/code&gt; the file was last modified.|
+|file.extname |The extension name for the file, e.g.  .jpg for image.jpg|&lt;/p&gt;
+
+&lt;h3&gt;变量&lt;/h3&gt;
+
+&lt;h4&gt;全局变量&lt;/h4&gt;
+
+&lt;p&gt;| VARIABLE |DESCRIPTION  |
+|:-------|-----------    |
+|&lt;code&gt;site&lt;/code&gt;    |sitewide 信息+ &lt;code&gt;_config.yml&lt;/code&gt;的配置信息|
+|&lt;code&gt;page&lt;/code&gt;    |Page specific information + the YAML front matter. Custom variables set via the YAML Front Matter will be available here.|
+|&lt;code&gt;content&lt;/code&gt; | 用在layout 文件中，指post和page里面被渲染的内容|
+|&lt;code&gt;paginator&lt;/code&gt;|When the paginate configuration option is set, this variable becomes available for use|&lt;/p&gt;
+
+&lt;h4&gt;site 变量&lt;/h4&gt;
+
+&lt;p&gt;| VARIABLE |DESCRIPTION  |
+|----------:|----------:|
+|&lt;code&gt;site.time&lt;/code&gt; |  当前时间|
+|site.pages  | 所有pages的列表|
+|site.posts  | 所有posts按照时间的倒序列表|
+|site.static&lt;em&gt;files |所有static files 的列表. 每个文件有三个属性&lt;code&gt;path&lt;/code&gt;, ` modified&lt;/em&gt;time&lt;code&gt;and&lt;/code&gt;extname`|
+|site.html&lt;em&gt;pages|所有HTML Pages的列表|
+|site.collections| 所有collections的列表|
+|site.data | A list containing the data loaded from the YAML files located in the _data directory.|
+|site.documents|A list of all the documents in every collection.|
+|site.categories.CATEGORY|The list of all Posts in category CATEGORY.|
+|site.tags.TAG| The list of all Posts with tag TAG.|
+|site.[CONFIGURATION&lt;/em&gt;DATA]| All the variables set via the command line and your _config.yml are available through the site variable. For example, if you have url: http://mysite.com in your configuration file, then in your Posts and Pages it will be stored in site.url. Jekyll does not parse changes to _config.yml in watch mode, you must restart Jekyll to see changes to variables.|&lt;/p&gt;
+
+&lt;h4&gt;Page 变量&lt;/h4&gt;
+
+&lt;p&gt;| VARIABLE|DESCRIPTION|
+|--------|-----------|
+| page.content|The content of the Page |
+| page.title| The title of the Page|
+|page.excerpt|The un-rendered excerpt of the Page|
+|page.url|  The URL of the Post without the domain, but with a leading slash, e.g. &lt;code&gt;/2008/12/14/my-post.html&lt;/code&gt;|&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TODO&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4&gt;Paginator&lt;/h4&gt;
+
+&lt;h3&gt;collections&lt;/h3&gt;
 </description>
-      </item>
-    
-      <item>
-        <title>Book List 2015</title>
-        <link>/2015/01/29/Book-List-2015.html</link>
-        <guid isPermaLink="true">/2015/01/29/Book-List-2015.html</guid>
-        <pubDate>Thu, 29 Jan 2015 00:00:00 +0800</pubDate>
-        <description>
-</description>
-      </item>
-    
-      <item>
-        <title>2015年阅读书单</title>
-        <link>/2015/01/29/Book-List-2015.html</link>
-        <guid isPermaLink="true">/2015/01/29/Book-List-2015.html</guid>
-        <pubDate>Thu, 29 Jan 2015 00:00:00 +0800</pubDate>
-        <description></description>
       </item>
     
   </channel>

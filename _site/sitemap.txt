@@ -11,8 +11,4 @@
 
 
 
-  /2015/02/13/Cplus-on-MAC.html
-
-  /2015/01/29/Book-List-2015.html
-
-  /2015/01/29/Book-List-2015.html
+  /2015/05/16/jekyll%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95.html
