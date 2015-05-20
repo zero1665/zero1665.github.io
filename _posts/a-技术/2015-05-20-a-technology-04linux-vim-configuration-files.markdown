@@ -28,9 +28,9 @@ comments: true
 ```
 下面是别人的vimrc配置的一些链接，有很多配置的说明和复杂的设置，想模仿学习具体看这些内容：
 
-[一个有中文解释的vimrc配置文件](http://http://blog.csdn.net/wklken/article/details/8044678)  
-[又一个人的vimrc配置，有中文说明](http://http://www.cnblogs.com/ma6174/archive/2011/12/10/2283393.html)  
-[传说史上最强的vimrc文件](http://http://amix.dk/vim/vimrc.html)  
+[一个有中文解释的vimrc配置文件](http://blog.csdn.net/wklken/article/details/8044678)  
+[又一个人的vimrc配置，有中文说明](http://www.cnblogs.com/ma6174/archive/2011/12/10/2283393.html)  
+[传说史上最强的vimrc文件](http://amix.dk/vim/vimrc.html)  
 [史上最强的Vim 配置文件（国内修正版）](http://blog.csdn.net/redguardtoo/article/details/1172136)  
 
 
