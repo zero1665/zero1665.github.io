@@ -245,7 +245,7 @@ tags                 : 类似categories, 可以指定一个或多个
 <p>使用的符号为 星号(*) 或底线(_) ，被一个包围的时斜体，两个包围的是强调，例如：  </p>
 
 <p><em>斜体</em>：的语法为 <code>*斜体*</code> 或 <code>_斜体_</code><br>
-<strong>强调</strong> : 的语法为 <code>**强调**</code> 或 <code>__强调__</code>  </p>
+<strong>强调</strong> : 的语法为 <code>**强调**</code> 或 <code>__强调__</code>    </p>
 
 <blockquote>
 <p>需要注意的时，如果<code>*/_</code> 的两边都有空白的话，会被当成普通的 */_ 符号.</p>
@@ -253,87 +253,78 @@ tags                 : 类似categories, 可以指定一个或多个
 
 <h4 id="引用">引用</h4>
 
-<p>使用行首的 <code>&gt;</code> 符号表示引用，使用不同数目的<code>&gt;</code>实现引用的嵌套， 引用区块内可以使用其它的Markdown语法，下面是一个例子：
-```</p>
+<p>使用行首的 <code>&gt;</code> 符号表示引用，使用不同数目的<code>&gt;</code>实现引用的嵌套， 引用区块内可以使用其它的Markdown语法，下面是一个例子： </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&gt; ## 这是一个标题
+&gt;
+&gt; &gt; 这里是嵌套引用（引用的引用）
+&gt;
+&gt; 1. 这里是列表。  
+&gt; 2. 第二行列表。
+</code></pre></div>
+<h4 id="列表">列表</h4>
 
-<blockquote>
-<h2 id="这是一个标题">这是一个标题</h2>
+<p>分为有序列表 和无序列表，支持嵌套。<br>
+无序列表：<code>*/+/-</code> 其中的任何一个符号都可以作为列表标记，下面时加号的一个例子</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">+ red
++ green
++ blue
+</code></pre></div>
+<p>有序列表： 使用数字紧接一个英文句点，例如</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">1. 数字大小不重要，
+2. markdown会自动生成数字顺序，跟这里的值没关系
+3. 这里写成4,最后显示也是3
+</code></pre></div>
+<h4 id="代码段-&amp;-代码">代码段 &amp; 代码</h4>
 
-<blockquote>
-<p>这里是嵌套引用（引用的引用）</p>
-</blockquote>
+<h5 id="代码段">代码段</h5>
 
-<ol>
-<li>这里是列表。<br></li>
-<li>第二行列表。
-<code>
-#### 列表  
-分为有序列表 和无序列表，支持嵌套。  
-无序列表：` */+/-` 其中的任何一个符号都可以作为列表标记，下面时加号的一个例子
-</code></li>
-<li>red</li>
-<li>green</li>
-<li>blue
-<code>
-有序列表： 使用数字紧接一个英文句点，例如
-</code></li>
-<li>数字大小不重要，</li>
-<li>markdown会自动生成数字顺序，跟这里的值没关系</li>
-<li>这里写成4,最后显示也是3
-``<code>
-#### 代码段 &amp; 代码
-#####代码段  
-代码段在html里是用</code><pre><code>` 标签包起来的内容，里面的内容会按照原来的样子显示。<br>
-markdown 建立代码段是用行首的 <strong>4个空格</strong> 或 <strong>1个制表符</strong> 缩进 。一个代码段会一直持续到没有缩进的那一行(或文件结尾)。<br></li>
-</ol>
-</blockquote>
+<p>代码段在html里是用<code>&lt;pre&gt;&lt;code&gt;</code> 标签包起来的内容，里面的内容会按照原来的样子显示。<br>
+  markdown 建立代码段是用行首的 <strong>4个空格</strong> 或 <strong>1个制表符</strong> 缩进 。一个代码段会一直持续到没有缩进的那一行(或文件结尾)。  </p>
 
 <h5 id="代码（对应&lt;code&gt;-标签）">代码（对应<code>&lt;code&gt;</code> 标签）</h5>
 
-<p>标记行内代码：使用反引号（`），格式为：`行内的代码内容` 。如果要在代码里插入反引号，可以用多个反引号，例如
-<code>
-``There is a literal backtick (`) here.``
-</code></p>
-
+<p>标记行内代码：使用反引号（`），格式为：`行内的代码内容` 。如果要在代码里插入反引号，可以用多个反引号，例如</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">``There is a literal backtick (`) here.``
+</code></pre></div>
 <h4 id="分隔线">分隔线</h4>
 
-<p>在行首用<strong>三个以上的星号(*),减号(-)，底线(_)</strong> ,行内不能有其它东西，下面的例子都可以建立分隔线：
-```</p>
+<p>在行首用<strong>三个以上的星号(*),减号(-)，底线(_)</strong> ,行内不能有其它东西，下面的例子都可以建立分隔线：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">* * *
 
-<hr>
+***
 
-<hr>
+*****
 
-<hr>
+- - -
 
-<hr>
-
-<hr>
-<div class="highlight"><pre><code class="language-text" data-lang="text">#### 链接 
-链接有两种形式的语法：行内式 和 参考式 两种。  
-行内式: `[link name ](http://xxxxxx )` ,例如： `[维基百科](http://www.wiki.com)`会显示为[维基百科](http://www.wiki.com)   
-参考式: `[][]`,使用两个方括号，通过一个例子来看吧：
+---------------------------------------
 </code></pre></div>
-<p>This is <a href="url/to/image" title="optional title attribute">an example</a> reference-style link</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">上面的`id` 可以是数字，字母，空格(隐式标记)和标点，不区分大小写。显示为下面一行：  
+<h4 id="链接">链接</h4>
 
-This is [an example][id] reference-style link  
-
-
-
-#### 图片
-同样是分为两种: 行内式和参考式
-行内式: 语法格式如下
+<p>链接有两种形式的语法：行内式 和 参考式 两种。<br>
+行内式: <code>[link name ](http://xxxxxx )</code> ,例如： <code>[维基百科](http://www.wiki.com)</code>会显示为<a href="http://www.wiki.com">维基百科</a><br>
+参考式: <code>[][]</code>,使用两个方括号，通过一个例子来看吧：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">This is [an example][id] reference-style link
 </code></pre></div>
-<p><img src="/path/to/img.jpg" alt="Alt text"></p>
+<p>上面的<code>id</code> 可以是数字，字母，空格(隐式标记)和标点，不区分大小写。显示为下面一行：  </p>
 
-<p><img src="/path/to/img.jpg" alt="Alt text" title="Optional title">
-<code>
-参考式：语法格式如下
-</code>
-<img src="url/to/image" alt="Text" title="optional title attribute"></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&gt;目前为止， Markdown 还没有办法指定图片的宽高，如果你需要的话，你可以使用普通的 `&lt;img&gt;` 标签
-</code></pre></div> 
+<p>This is <a href="url/to/image" title="optional title attribute">an example</a> reference-style link  </p>
+
+<h4 id="图片">图片</h4>
+
+<p>同样是分为两种: 行内式和参考式
+行内式: 语法格式如下</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">![Alt text](/path/to/img.jpg)
+
+![Alt text](/path/to/img.jpg &quot;Optional title&quot;)
+</code></pre></div>
+<p>参考式：语法格式如下</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">![Text][id]
+</code></pre></div>
+<blockquote>
+<p>目前为止， Markdown 还没有办法指定图片的宽高，如果你需要的话，你可以使用普通的 <code>&lt;img&gt;</code> 标签</p>
+</blockquote>
+ 
         <a href="/2015/05/21/a-technology-06git-markdown-syntax.html"> Read More ... </a> </br>
       </div>
     </li>
