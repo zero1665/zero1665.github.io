@@ -119,18 +119,22 @@
 
       <article>
 
-<p>###全局配置文件
-_config.yml
-###Front Matter
-####预定义的全局<strong>YAML</strong>变量</p>
+<h3 id="全局配置文件">全局配置文件</h3>
+
+<p>_config.yml</p>
+
+<h3 id="front-matter">Front Matter</h3>
+
+<h4 id="预定义的全局yaml变量">预定义的全局<strong>YAML</strong>变量</h4>
 <div class="highlight"><pre><code class="language-text" data-lang="text">layout               : 指定要使用的layout 文件（在_layouts目录下，不包含扩展名）
 permalink            : 指定博客的URLs(默认是/year/month/day/title.html)
 published            : 设置为 false 如果你不想让这篇博客在generate的时候显示
 category/categories  : 指定分类(常用) 
 tags                 : 类似categories, 可以指定一个或多个
 </code></pre></div>
-<p>###写博客
-  博客放在 <code>_posts</code> 文件夹下面，格式是html或markdown文件，所有的博客文件都必须包含 <em>YAML Front Matter</em></p>
+<h3 id="写博客">写博客</h3>
+
+<p>博客放在 <code>_posts</code> 文件夹下面，格式是html或markdown文件，所有的博客文件都必须包含 <em>YAML Front Matter</em></p>
 
 <p>博客文件的命名格式 <code>YEAR-MONTH-DAY-title.MARKUP</code> 例如 <em>2015-05-16-how-to-write-a-blog.md</em></p>
 
@@ -140,7 +144,7 @@ tags                 : 类似categories, 可以指定一个或多个
 <p>为了正确的现实某些字符，最好定义你的字符集(charset)为utf-8 ，可以在你的layout的<code>&lt;head&gt;</code>标签里 设置 <code>&lt;meta charset=&quot;utf-8&quot;&gt;</code></p>
 </blockquote>
 
-<p>####包含图片等资源文件####</p>
+<h4 id="包含图片等资源文件">包含图片等资源文件</h4>
 
 <p>在项目目录下建立相应的文件夹，比如 新建<code>images</code>文件夹放图片，然后在博客中使用<code>site.url</code>变量去包含图片
 例子：在博客中包含一个图片(images文件夹下)</p>
@@ -150,8 +154,9 @@ tags                 : 类似categories, 可以指定一个或多个
 <p>例子2：放一个pdf文件(assets文件夹下)让别人下载</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">… you can [get the PDF](/assets/mydoc.pdf) directly.
 </code></pre></div>
-<p>####显示文章的索引(index)
-example:</p>
+<h4 id="显示文章的索引(index)">显示文章的索引(index)</h4>
+
+<p>example:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">    &lt;ul&gt;
       {% for post in site.posts %}
           &lt;li&gt;
@@ -160,8 +165,9 @@ example:</p>
       {% endfor %}
     &lt;/ul&gt;
 </code></pre></div>
-<p>####文章摘录
-继续用上面的例子，如果你要显示每篇博客的一部分内容，用如下设置</p>
+<h4 id="文章摘录">文章摘录</h4>
+
+<p>继续用上面的例子，如果你要显示每篇博客的一部分内容，用如下设置</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">&lt;ul&gt;
   {% for post in site.posts %}
       &lt;li&gt;
@@ -185,8 +191,9 @@ Out-of-excerpt
 </code></pre></div>
 <p>如果想禁止所有博客的摘要，可以在 <code>_config.yml</code>文建立设置<code>excerpt_separator : &quot;&quot;</code></p>
 
-<p>####代码高亮
-jekyll支持代码高亮，使用的是 Rouge 或 Pygments</p>
+<h4 id="代码高亮">代码高亮</h4>
+
+<p>jekyll支持代码高亮，使用的是 Rouge 或 Pygments</p>
 
 <p>代码高亮的专用Liquid tag 如下所示：</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">{% highlight ruby %}
@@ -205,15 +212,17 @@ end
 
 <p>`</p>
 
-<p>###创建pages
-####homepage
-根目录下的<code>index.html</code>文件</p>
+<h3 id="创建pages">创建pages</h3>
+
+<h4 id="homepage">homepage</h4>
+
+<p>根目录下的<code>index.html</code>文件</p>
 
 <blockquote>
 <p>在homepage中使用 layout</p>
 </blockquote>
 
-<p>####额外的pages在哪里</p>
+<h4 id="额外的pages在哪里">额外的pages在哪里</h4>
 
 <p>主要有两种创建pages的方式：</p>
 
@@ -251,8 +260,9 @@ end
 |   └── index.html  # =&gt; http://example.com/contact/
 └── index.html      # =&gt; http://example.com/
 </code></pre></div>
-<p>###static file
-static file：不含有 YAML front matter 的文件，比如图片，pdf等文件。这些文件不能被渲染和翻译为html文件</p>
+<h3 id="static-file">static file</h3>
+
+<p>static file：不含有 YAML front matter 的文件，比如图片，pdf等文件。这些文件不能被渲染和翻译为html文件</p>
 
 <p>They’re accessible in Liquid via <code>site.static_files</code> and contain the following metadata:
 |VARIABLE   |DESCRIPTION|
@@ -260,8 +270,9 @@ static file：不含有 YAML front matter 的文件，比如图片，pdf等文�
 |file.modified_time| The <code>Time</code> the file was last modified.|
 |file.extname |The extension name for the file, e.g.  .jpg for image.jpg|</p>
 
-<p>###变量
-####全局变量</p>
+<h3 id="变量">变量</h3>
+
+<h4 id="全局变量">全局变量</h4>
 
 <table><thead>
 <tr>
@@ -287,22 +298,61 @@ static file：不含有 YAML front matter 的文件，比如图片，pdf等文�
 </tr>
 </tbody></table>
 
-<p>####site 变量
-| VARIABLE |DESCRIPTION  |
-|----------|----------|
-|<code>site.time</code> |  当前时间|
-|site.pages  | 所有pages的列表|
-|site.posts  | 所有posts按照时间的倒序列表|
-|site.static_files |所有static files 的列表. 每个文件有三个属性<code>path</code>, <code>modified_time</code> and <code>extname</code>|
-|site.html_pages|所有HTML Pages的列表|
-|site.collections| 所有collections的列表|
-|site.data | A list containing the data loaded from the YAML files located in the _data directory.|
-|site.documents|A list of all the documents in every collection.|
-|site.categories.CATEGORY|The list of all Posts in category CATEGORY.|
-|site.tags.TAG| The list of all Posts with tag TAG.|
-|site.[CONFIGURATION_DATA]| All the variables set via the command line and your _config.yml are available through the site variable. For example, if you have url: <a href="http://mysite.com">http://mysite.com</a> in your configuration file, then in your Posts and Pages it will be stored in site.url. Jekyll does not parse changes to _config.yml in watch mode, you must restart Jekyll to see changes to variables.|</p>
+<h4 id="site-变量">site 变量</h4>
 
-<p>####Page 变量</p>
+<table><thead>
+<tr>
+<th>VARIABLE</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>site.time</code></td>
+<td>当前时间</td>
+</tr>
+<tr>
+<td>site.pages</td>
+<td>所有pages的列表</td>
+</tr>
+<tr>
+<td>site.posts</td>
+<td>所有posts按照时间的倒序列表</td>
+</tr>
+<tr>
+<td>site.static_files</td>
+<td>所有static files 的列表. 每个文件有三个属性<code>path</code>, <code>modified_time</code> and <code>extname</code></td>
+</tr>
+<tr>
+<td>site.html_pages</td>
+<td>所有HTML Pages的列表</td>
+</tr>
+<tr>
+<td>site.collections</td>
+<td>所有collections的列表</td>
+</tr>
+<tr>
+<td>site.data</td>
+<td>A list containing the data loaded from the YAML files located in the _data directory.</td>
+</tr>
+<tr>
+<td>site.documents</td>
+<td>A list of all the documents in every collection.</td>
+</tr>
+<tr>
+<td>site.categories.CATEGORY</td>
+<td>The list of all Posts in category CATEGORY.</td>
+</tr>
+<tr>
+<td>site.tags.TAG</td>
+<td>The list of all Posts with tag TAG.</td>
+</tr>
+<tr>
+<td>site.[CONFIGURATION_DATA]</td>
+<td>All the variables set via the command line and your _config.yml are available through the site variable. For example, if you have url: <a href="http://mysite.com">http://mysite.com</a> in your configuration file, then in your Posts and Pages it will be stored in site.url. Jekyll does not parse changes to _config.yml in watch mode, you must restart Jekyll to see changes to variables.</td>
+</tr>
+</tbody></table>
+
+<h4 id="page-变量">Page 变量</h4>
 
 <table><thead>
 <tr>
@@ -330,8 +380,9 @@ static file：不含有 YAML front matter 的文件，比如图片，pdf等文�
 
 <p><strong>TODO</strong></p>
 
-<p>####Paginator
-###collections</p>
+<h4 id="paginator">Paginator</h4>
+
+<h3 id="collections">collections</h3>
 
 
       </article>
