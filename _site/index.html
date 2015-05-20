@@ -73,6 +73,12 @@
                 </li>
             
       
+            
+                <li>
+                <a href="/categories/a-技术-07vim"> a-技术-07vim (1) </a>
+                </li>
+            
+      
   </ul>
 
       </aside>
@@ -112,22 +118,47 @@
     
     <li>
       <div class="post-title">
-        <a href="/2015/05/20/a-technology-04linux-vim-configuration-files.html"> vim：.vimrc & .viminfo & .vim/</a> </br>
+        <a href="/a-%E6%8A%80%E6%9C%AF-07vim/2015/05/20/a-technology-04linux-vim-configuration-files.html"> vim相关文件：.vimrc  .viminfo  .vim/</a> </br>
       </div>
 
       <div class="post-info">
         <ol>
           <li class="post-time">2015-05-20</li> 
           <li class="post-category"> 
-           
+           a-技术-07vim
           </li>
         </ol>
       </div>
 
       <div class="post-preview">
-        <h4 id=".vimrc:-vim的配置文件">.vimrc: vim的配置文件</h4>
+        <h4 id=".viminfo:-记录vim操作历史">.viminfo: 记录vim操作历史</h4>
+
+<p>~/.viminfo 是在使用vim的过程中自动生成的一个文件，记录你在vim中的操作历史，每次退出vim时自动保存。我们用vim打开文件时，会自动恢复为上一次操作此文件所处的状态就是通过读取 .viminfo 文件实现的。  </p>
+
+<p>你可以通过 执行 <code>：set vininfo= string</code> 来设置 .viminfo 文件保存多少信息。你还可以使用 <code>:wviminfo [file]</code> 手动创建一个viminfo文件保存工作状态，然后通过 <code>rviminfo</code> 命令手动读取一个保存的viminfo文件。具体的使用语法参见<a href="http://vimdoc.sourceforge.net/vimum.html">vim参考手册</a></p>
+
+<h4 id=".vimrc:-vim的配置文件">.vimrc: vim的配置文件</h4>
+
+<p>vimrc文件是vim 的环境设置文件。可以设置你喜欢的一些选项和功能，插件和宏等，通常所说的定制你自己的vim就是通过编辑 .vimrc 实现的。vimrc文件根据作用的范围，有两种：</p>
+
+<ul>
+<li>对所有用户有效的配置文件: /etc/vim/vimrc （轻易不要修改全局的设置）</li>
+<li>每个用户自己的配置文件  : ~/.vimrc (如果没有，自己建一个，一般改这个)</li>
+</ul>
+<div class="highlight"><pre><code class="language-text" data-lang="text">：set all
+</code></pre></div>
+<p>可以查看所有的配置项。
+下面是我自己的vimrc配置文件，因为也是正在学习，会不定期更新</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">
+</code></pre></div>
+<p>下面是别人的vimrc配置的一些链接，有很多配置的说明和复杂的设置，想模仿学习具体看这些内容：</p>
+
+<p><a href="http://http://blog.csdn.net/wklken/article/details/8044678">一个有中文解释的vimrc配置文件</a><br>
+<a href="http://http://www.cnblogs.com/ma6174/archive/2011/12/10/2283393.html">又一个人的vimrc配置，有中文说明</a><br>
+<a href="http://http://amix.dk/vim/vimrc.html">传说史上最强的vimrc文件</a><br>
+<a href="http://blog.csdn.net/redguardtoo/article/details/1172136">史上最强的Vim 配置文件（国内修正版）</a>  </p>
  
-        <a href="/2015/05/20/a-technology-04linux-vim-configuration-files.html"> Read More ... </a> </br>
+        <a href="/a-%E6%8A%80%E6%9C%AF-07vim/2015/05/20/a-technology-04linux-vim-configuration-files.html"> Read More ... </a> </br>
       </div>
 
     </li>
