@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+
+    <link rel="stylesheet" type="text/css" 
+      href="/assets/css/straybirds.css" media="screen" />
+    <link rel="stylesheet" type="text/css" 
+      href="/assets/css/pygments.css" media="screen" />
+
+    <!-- MathJax Section Start -->
+
+    <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script>
+        MathJax.Hub.Config({
+              tex2jax: {
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+              }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <!-- MathJax Section End -->
+
+    <!-- Google Analytics Start-->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48100787-1', 'zero1665.github.io');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Google Analytics End -->
+
+    <title>jekyll搭建静态博客记录</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <div class="container">
+          <h1>
+              <a href="/" title="Home Page">耕耘</a>
+          <span class="github-src">
+            <a href ="https://github.com/zero1665/zero1665.github.io"
+               target="_blank"
+               title="Fork me on GitHub">
+              <img src="/assets/images/GitHub-Mark-Light-32px.png" alt="">
+            </a>
+          </span>
+          </h1>
+        </div>
+      </header>
+
+      <aside id="left-side">
+        <h2> 分类 </h2>
+  <ul class="category-list">
+      
+            
+                <li>
+                <a href="/categories/a-技术-git"> a-技术-git (1) </a>
+                </li>
+            
+      
+            
+                <li>
+                <a href="/categories/a-技术-07vim"> a-技术-07vim (1) </a>
+                </li>
+            
+      
+  </ul>
+
+      </aside>
+
+      <aside id="right-side">
+        <h2> 归档 </h2>
+  <ul class="archive-list">
+    
+    
+    
+        
+        
+        
+        
+    
+        
+        
+        
+        
+    
+        
+        
+        
+        
+            
+            <li>
+                <a href="/2015/05">
+                    2015-05 (3)
+                </a>
+            </li>
+
+        
+        
+    
+  </ul>
+
+      </aside>
+
+      <article>
+
+<h3 id="全局配置文件">全局配置文件</h3>
+
+<p>_config.yml</p>
+
+<h3 id="front-matter">Front Matter</h3>
+
+<h4 id="预定义的全局yaml变量">预定义的全局<strong>YAML</strong>变量</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">layout               : 指定要使用的layout 文件（在_layouts目录下，不包含扩展名）
+permalink            : 指定博客的URLs(默认是/year/month/day/title.html)
+published            : 设置为 false 如果你不想让这篇博客在generate的时候显示
+category/categories  : 指定分类(常用) 
+tags                 : 类似categories, 可以指定一个或多个
+</code></pre></div>
+<h3 id="写博客">写博客</h3>
+
+<p>博客放在 <code>_posts</code> 文件夹下面，格式是html或markdown文件，所有的博客文件都必须包含 <em>YAML Front Matter</em></p>
+
+<p>博客文件的命名格式 <code>YEAR-MONTH-DAY-title.MARKUP</code> 例如 <em>2015-05-16-how-to-write-a-blog.md</em></p>
+
+<blockquote>
+<p>可以使用<code>post_url</code> tag 连接到其它博客</p>
+
+<p>为了正确的现实某些字符，最好定义你的字符集(charset)为utf-8 ，可以在你的layout的<code>&lt;head&gt;</code>标签里 设置 <code>&lt;meta charset=&quot;utf-8&quot;&gt;</code></p>
+</blockquote>
+
+<h4 id="包含图片等资源文件">包含图片等资源文件</h4>
+
+<p>在项目目录下建立相应的文件夹，比如 新建<code>images</code>文件夹放图片，然后在博客中使用<code>site.url</code>变量去包含图片
+例子：在博客中包含一个图片(images文件夹下)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">… which is shown in the screenshot below:
+![My helpful screenshot](/images/screenshot.jpg)
+</code></pre></div>
+<p>例子2：放一个pdf文件(assets文件夹下)让别人下载</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">… you can [get the PDF](/assets/mydoc.pdf) directly.
+</code></pre></div>
+<h4 id="显示文章的索引(index)">显示文章的索引(index)</h4>
+
+<p>example:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    &lt;ul&gt;
+      {% for post in site.posts %}
+          &lt;li&gt;
+            &lt;a href=&quot;{{ post.url}}&quot;&gt;{{ post.title }}&lt;/a&gt;
+          &lt;/li&gt;
+      {% endfor %}
+    &lt;/ul&gt;
+</code></pre></div>
+<h4 id="文章摘录">文章摘录</h4>
+
+<p>继续用上面的例子，如果你要显示每篇博客的一部分内容，用如下设置</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;ul&gt;
+  {% for post in site.posts %}
+      &lt;li&gt;
+            &lt;a href=&quot;{{ post.url }}&quot;&gt;{{ post.title }}&lt;/a&gt;
+            {{ post.excerpt }}
+      &lt;/li&gt;
+  {% endfor %}
+&lt;/ul&gt;
+</code></pre></div>
+<p>If you do not  want to wrap the excerpt in <code>p</code>  tags , use below code</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    {{ post.excerpt | remove: &#39;&lt;p&gt;&#39; | remove: &#39;&lt;/p&gt;&#39; }}
+</code></pre></div>
+<p>如果在某篇博客里不想生成摘要，可以在 <code>YAML Front Matter</code> 加一个 <code>excerpt</code>值，也可以自己定制一个<code>excerpt_separator</code>,例如：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">---
+excerpt_separator: &lt;!--more--&gt;
+---
+
+Excerpt
+&lt;!--more--&gt;
+Out-of-excerpt
+</code></pre></div>
+<p>如果想禁止所有博客的摘要，可以在 <code>_config.yml</code>文建立设置<code>excerpt_separator : &quot;&quot;</code></p>
+
+<h4 id="代码高亮">代码高亮</h4>
+
+<p>jekyll支持代码高亮，使用的是 Rouge 或 Pygments</p>
+
+<p>代码高亮的专用Liquid tag 如下所示：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">{% highlight ruby %}
+def show
+  @widget = Widget(params[:id])
+    respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @widget }
+  end
+end
+{% endhighlight %}
+</code></pre></div>
+<blockquote>
+<p>让代码显示行号则要写成 `</p>
+</blockquote>
+
+<p>`</p>
+
+<h3 id="创建pages">创建pages</h3>
+
+<h4 id="homepage">homepage</h4>
+
+<p>根目录下的<code>index.html</code>文件</p>
+
+<blockquote>
+<p>在homepage中使用 layout</p>
+</blockquote>
+
+<h4 id="额外的pages在哪里">额外的pages在哪里</h4>
+
+<p>主要有两种创建pages的方式：</p>
+
+<ul>
+<li>将每个page的Mamed HTML file都放在网站的根目录下</li>
+<li>在根目录下，为每个page新建相应的文件夹，然后每个文件夹下都放一个<code>index.html</code>文件。</li>
+</ul>
+
+<p>两种方式可以结合使用，主要的区别是最终的实际URLs不同</p>
+
+<p>方式1：Named HTML file </p>
+
+<p>项目根目录下的每一个<code>.html</code>文件都对应着一个page， 最终的URLs格式参见下面的例子：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">.
+|-- _config.yml
+|-- _includes/
+|-- _layouts/
+|-- _posts/
+|-- _site/
+|-- about.html    # =&gt; http://example.com/about.html
+|-- index.html    # =&gt; http://example.com/
+└── contact.html  # =&gt; http://example.com/contact.html
+</code></pre></div>
+<p>方式2：包含 <code>index.html</code>的独立文件夹
+直接参见例子：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">.
+├── _config.yml
+├── _includes/
+├── _layouts/
+├── _posts/
+├── _site/
+├── about/
+|   └── index.html  # =&gt; http://example.com/about/
+├── contact/
+|   └── index.html  # =&gt; http://example.com/contact/
+└── index.html      # =&gt; http://example.com/
+</code></pre></div>
+<h3 id="static-file">static file</h3>
+
+<p>static file：不含有 YAML front matter 的文件，比如图片，pdf等文件。这些文件不能被渲染和翻译为html文件</p>
+
+<p>They’re accessible in Liquid via <code>site.static_files</code> and contain the following metadata:
+|VARIABLE   |DESCRIPTION|
+|file.path       |The relative path to the file.|
+|file.modified_time| The <code>Time</code> the file was last modified.|
+|file.extname |The extension name for the file, e.g.  .jpg for image.jpg|</p>
+
+<h3 id="变量">变量</h3>
+
+<h4 id="全局变量">全局变量</h4>
+
+<table><thead>
+<tr>
+<th style="text-align: left">VARIABLE</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>site</code></td>
+<td>sitewide 信息+ <code>_config.yml</code>的配置信息</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>page</code></td>
+<td>Page specific information + the YAML front matter. Custom variables set via the YAML Front Matter will be available here.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>content</code></td>
+<td>用在layout 文件中，指post和page里面被渲染的内容</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>paginator</code></td>
+<td>When the paginate configuration option is set, this variable becomes available for use</td>
+</tr>
+</tbody></table>
+
+<h4 id="site-变量">site 变量</h4>
+
+<table><thead>
+<tr>
+<th>VARIABLE</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>site.time</code></td>
+<td>当前时间</td>
+</tr>
+<tr>
+<td>site.pages</td>
+<td>所有pages的列表</td>
+</tr>
+<tr>
+<td>site.posts</td>
+<td>所有posts按照时间的倒序列表</td>
+</tr>
+<tr>
+<td>site.static_files</td>
+<td>所有static files 的列表. 每个文件有三个属性<code>path</code>, <code>modified_time</code> and <code>extname</code></td>
+</tr>
+<tr>
+<td>site.html_pages</td>
+<td>所有HTML Pages的列表</td>
+</tr>
+<tr>
+<td>site.collections</td>
+<td>所有collections的列表</td>
+</tr>
+<tr>
+<td>site.data</td>
+<td>A list containing the data loaded from the YAML files located in the _data directory.</td>
+</tr>
+<tr>
+<td>site.documents</td>
+<td>A list of all the documents in every collection.</td>
+</tr>
+<tr>
+<td>site.categories.CATEGORY</td>
+<td>The list of all Posts in category CATEGORY.</td>
+</tr>
+<tr>
+<td>site.tags.TAG</td>
+<td>The list of all Posts with tag TAG.</td>
+</tr>
+<tr>
+<td>site.[CONFIGURATION_DATA]</td>
+<td>All the variables set via the command line and your _config.yml are available through the site variable. For example, if you have url: <a href="http://mysite.com">http://mysite.com</a> in your configuration file, then in your Posts and Pages it will be stored in site.url. Jekyll does not parse changes to _config.yml in watch mode, you must restart Jekyll to see changes to variables.</td>
+</tr>
+</tbody></table>
+
+<h4 id="page-变量">Page 变量</h4>
+
+<table><thead>
+<tr>
+<th>VARIABLE</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page.content</td>
+<td>The content of the Page</td>
+</tr>
+<tr>
+<td>page.title</td>
+<td>The title of the Page</td>
+</tr>
+<tr>
+<td>page.excerpt</td>
+<td>The un-rendered excerpt of the Page</td>
+</tr>
+<tr>
+<td>page.url</td>
+<td>The URL of the Post without the domain, but with a leading slash, e.g. <code>/2008/12/14/my-post.html</code></td>
+</tr>
+</tbody></table>
+
+<p><strong>TODO</strong></p>
+
+<h4 id="paginator">Paginator</h4>
+
+<h3 id="collections">collections</h3>
+
+
+      </article>
+
+      <div class="comments">
+        
+      </div>
+
+
+      <footer>
+        Copyright (c) zero1665 2015
+      </footer>
+
+    </div>
+  </body>
+</html>
